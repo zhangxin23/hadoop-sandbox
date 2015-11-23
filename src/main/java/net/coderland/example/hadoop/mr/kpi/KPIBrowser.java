@@ -21,13 +21,13 @@ import org.apache.hadoop.mapred.TextOutputFormat;
 public class KPIBrowser {
 
     public static class KPIBrowserMapper extends MapReduceBase implements Mapper<Object, Text, Text, IntWritable> {
-        private IntWritable one = new IntWritable(1);
+        private static IntWritable one = new IntWritable(1);
         private Text word = new Text();
 
         @Override
         public void map(Object key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
             KPI kpi = KPI.filterBroswer(value.toString());
-            if (kpi.isValid()) {
+            if(kpi.isValid()) {
                 word.set(kpi.getHttp_user_agent());
                 output.collect(word, one);
             }
@@ -40,7 +40,7 @@ public class KPIBrowser {
         @Override
         public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
             int sum = 0;
-            while (values.hasNext()) {
+            while(values.hasNext()) {
                 sum += values.next().get();
             }
             result.set(sum);
