@@ -37,6 +37,16 @@
 			<artifactId>hadoop-mapreduce-client-common</artifactId>
 			<version>2.6.2</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.jopt-simple</groupId>
+			<artifactId>jopt-simple</artifactId>
+			<version>4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.recallq</groupId>
+			<artifactId>parseweblog</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

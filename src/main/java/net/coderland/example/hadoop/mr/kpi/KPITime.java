@@ -30,9 +30,10 @@ public class KPITime {
             KPI kpi = KPI.filterBroswer(value.toString());
             if (kpi.isValid()) {
                 try {
-                    word.set(kpi.getTime_local_Date_hour());
+//                    word.set(kpi.getTime_local_Date_hour());
+                    word.set(kpi.getTime_local());
                     output.collect(word, one);
-                } catch (ParseException e) {
+                } catch (Exception e){ //ParseException e) {
                     e.printStackTrace();
                 }
             }
@@ -54,8 +55,8 @@ public class KPITime {
     }
 
     public static void main(String[] args) throws Exception {
-        String input = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi";
-        String output = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi/time";
+        String input = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi";
+        String output = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi/time";
 
         JobConf conf = new JobConf(KPITime.class);
         conf.setJobName("KPITime");

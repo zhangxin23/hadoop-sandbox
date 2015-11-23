@@ -51,11 +51,11 @@ public class KPIIP {
     }
 
     public static void main(String[] args) throws Exception {
-        String input = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi/";
-        String output = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi/ip";
+        String input = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi/";
+        String output = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi/ip";
 
         JobConf conf = new JobConf(KPIIP.class);
-        conf.setJobName("KPIIP");
+        conf.setJobName("KPIIP")                                                                            ;
         conf.addResource("classpath:/hadoop/core-site.xml");
         conf.addResource("classpath:/hadoop/hdfs-site.xml");
         conf.addResource("classpath:/hadoop/mapred-site.xml");

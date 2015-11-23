@@ -49,8 +49,8 @@ public class KPIPV {
     }
 
     public static void main(String[] args) throws Exception {
-        String input = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi/";
-        String output = "hdfs://192.168.1.210:9000/user/hdfs/log_kpi/pv";
+        String input = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi/";
+        String output = "hdfs://ubuntu-zhangxin:9000/sandbox/log_kpi/pv";
 
         JobConf conf = new JobConf(KPIPV.class);
         conf.setJobName("KPIPV");
