@@ -1,6 +1,6 @@
 package net.coderland.example.hadoop.mr.kpi;
 
-import com.recallq.parseweblog.ParseWebLog;
+import net.coderland.example.parser.LogParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,49 +29,30 @@ public class KPI {
     private static String metaPattern = "$remote_addr - $remote_user [$time_local] \"$scheme\" \"$host\" \"$request\" " +
             "$request_body $status $request_time $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"";
 
-    private static KPI parser(String line) {
-//        System.out.println(line);
-//        KPI kpi = new KPI();
-//        String[] arr = line.split("");
-//        if (arr.length > 11) {
-//            kpi.setRemote_addr(arr[0]);
-//            kpi.setRemote_user(arr[1]);
-//            kpi.setTime_local(arr[3].substring(1));
-//            kpi.setRequest(arr[6]);
-//            kpi.setStatus(arr[8]);
-//            kpi.setBody_bytes_sent(arr[9]);
-//            kpi.setHttp_referer(arr[10]);
-//
-//            if (arr.length > 12) {
-//                kpi.setHttp_user_agent(arr[11] + " " + arr[12]);
-//            } else {
-//                kpi.setHttp_user_agent(arr[11]);
-//            }
-//
-//            if (Integer.parseInt(kpi.getStatus()) >= 400) {// 大于400，HTTP错误
-//                kpi.setValid(false);
-//            }
-//        } else {
-//            kpi.setValid(false);
-//        }
-//        return kpi;
-
-        ParseWebLog parser = new ParseWebLog(metaPattern);
-        Map<String, Object> result = parser.parseLogLine(line);
+    public static KPI parser(String line) {
+        LogParser parser = new LogParser(metaPattern);
+        Map<String, Object> result = null;
         KPI kpi = new KPI();
-        kpi.setRemote_addr((String) result.get("remote_addr"));
-        kpi.setRemote_user((String) result.get("remote_user"));
-        kpi.setTime_local((result.get("time_local")).toString());
-        kpi.setScheme(result.get("scheme").toString());
-        kpi.setHost(result.get("host").toString());
-        kpi.setRequest(result.get("request").toString());
-        kpi.setRequest_body(result.get("request_body").toString());
-        kpi.setStatus(result.get("status").toString());
-        kpi.setRequest_time(result.get("request_time").toString());
-        kpi.setBody_bytes_sent(result.get("body_bytes_sent").toString());
-        kpi.setHttp_referer(result.get("http_referer").toString());
-        kpi.setHttp_user_agent(result.get("http_user_agent").toString());
-        kpi.setHttp_x_forwarded_for(result.get("http_x_forwarded_for").toString());
+
+        try {
+            result = parser.lineParse(line);
+            kpi.setRemote_addr((String) result.get("remote_addr"));
+            kpi.setRemote_user((String) result.get("remote_user"));
+            kpi.setTime_local((result.get("time_local")).toString());
+            kpi.setScheme(result.get("scheme").toString());
+            kpi.setHost(result.get("host").toString());
+            kpi.setRequest(result.get("request").toString());
+            kpi.setRequest_body(result.get("request_body").toString());
+            kpi.setStatus(result.get("status").toString());
+            kpi.setRequest_time(result.get("request_time").toString());
+            kpi.setBody_bytes_sent(result.get("body_bytes_sent").toString());
+            kpi.setHttp_referer(result.get("http_referer").toString());
+            kpi.setHttp_user_agent(result.get("http_user_agent").toString());
+            kpi.setHttp_x_forwarded_for(result.get("http_x_forwarded_for").toString());
+            kpi.setValid(true);
+        } catch(Exception e) {
+            kpi.setValid(false);
+        }
 
         return kpi;
     }
