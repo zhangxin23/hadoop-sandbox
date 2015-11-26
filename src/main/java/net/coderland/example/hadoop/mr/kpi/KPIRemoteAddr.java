@@ -58,7 +58,7 @@ public class KPIRemoteAddr {
         conf.setOutputValueClass(IntWritable.class);
 
         conf.setMapperClass(KPIRemoteAddrMapper.class);
-//        conf.setCombinerClass(KPIRemoteAdderReduce.class);
+        conf.setCombinerClass(KPIRemoteAdderReduce.class);
         conf.setReducerClass(KPIRemoteAdderReduce.class);
 
         conf.setInputFormat(TextInputFormat.class);
