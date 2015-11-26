@@ -1,5 +1,7 @@
 #! /bin/sh
 
+#net.coderland.example.hadoop.mr.kpi.KPIRemoteAddr
+
 if [ -z $1 ]; then
 	echo "run.sh main-class-name"
 	exit -1
